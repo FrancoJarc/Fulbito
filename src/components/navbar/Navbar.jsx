@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"
 import { Login } from "../../pages/login/Login";
+import { appRoutes } from "../../routes/routes";
 
 function Navbar() { 
     const { isLogueado, login } = useAuth();
@@ -34,15 +36,13 @@ function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="../../pages/cancha/Cancha.jsx">Cancha</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Alquiler</a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link" href="#">Perfil</a>
-                        </li>
+                        {appRoutes.map(route => (
+                            <li className="nav-item" key={route.name}>
+                                <Link className="nav-link" to={route.path}>
+                                    {route.name}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 {!isLogueado ? (
