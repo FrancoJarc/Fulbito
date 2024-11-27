@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-
-export function Login() {
+export function Registrarse() {
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "90vh"}}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "90vh" }}>
             <form className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
-                <h2 className="text-center mb-4">Iniciar Sesión</h2>
+                <h2 className="text-center mb-4">Registrarse</h2>
                 <div className="mb-3">
                     <label htmlFor="correo" className="form-label">Correo Electrónico</label>
                     <input
@@ -35,12 +34,7 @@ export function Login() {
                         <option value="dueño">Dueño</option>
                     </select>
                 </div>
-                <div className="text-end mb-3">
-                    <Link to="/registrarse" className="text-decoration-none">
-                        <small>Cree su usuario en dos clicks</small>
-                    </Link>
-                </div>
-                <button type="submit" className="btn btn-primary w-100">Iniciar Sesión</button>
+                <button type="submit" className="btn btn-primary w-100">Registrarse</button>
             </form>
         </div>
     );

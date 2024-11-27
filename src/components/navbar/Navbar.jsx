@@ -4,7 +4,7 @@ import { Login } from "../../pages/login/Login";
 import { appRoutes } from "../../routes/routes";
 
 function Navbar() { 
-    const { isLogueado, login } = useAuth();
+    const { isLogueado, login, logout} = useAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
@@ -45,19 +45,13 @@ function Navbar() {
                         ))}
                     </ul>
                 </div>
-                {!isLogueado ? (
-                    <form onSubmit={handleSubmit}>
-                        <input type="email" name="correo" id="correo" placeholder="Ejemplo@gmail.com"></input>
-                        <input type="password" name="password" id="password" ></input>
-                        <select name="rol" id="rol">
-                            <option value="jugador">Jugador</option>
-                            <option value="dueño">Dueño</option>
-                        </select>
-                        <button>Iniciar Sesion</button>
-                    </form>
-                ) : (
-                    <button>Cerrar sesion</button>
+                {isLogueado && (
+                    <button onClick={logout} className="btn btn-danger">
+                        Cerrar sesión
+                    </button>
                 )}
+
+
 
             </div>
         </nav>
