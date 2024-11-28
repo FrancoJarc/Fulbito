@@ -31,6 +31,14 @@
       "capacidad": "10 Personas",
       "calle": "Patron 128",
       "telefono": "77655898"
+    },
+    {
+      "id": "5",
+      "nombre": "Torino Club",
+      "precio": "5000",
+      "capacidad": "10",
+      "calle": "Miralla 57880",
+      "telefono": "45423547"
     }
   ],
   "users": [
@@ -45,6 +53,36 @@
       "correo": "dueno@gmail.com",
       "contraseña": "dueno",
       "rol": "dueño"
+    },
+    {
+      "id": "3",
+      "correo": "prueba@gmail.com",
+      "contraseña": "prueba",
+      "rol": "jugador"
+    },
+    {
+      "id": "4",
+      "correo": "franco@gmail.com",
+      "contraseña": "franco",
+      "rol": "dueño"
+    },
+    {
+      "id": "5",
+      "correo": "aaa@gmail.com",
+      "contraseña": "aaa",
+      "rol": "jugador"
+    }
+  ],
+  "reservas": [
+    {
+      "id": "cbc5",
+      "id_usuario": "1",
+      "id_cancha": "1"
+    },
+    {
+      "id": "3c81",
+      "id_usuario": "1",
+      "id_cancha": "2"
     }
   ]
 }

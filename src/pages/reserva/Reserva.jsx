@@ -1,16 +1,23 @@
+import { ReservaDueño } from "../../components/reserva/ReservaDueño";
+import { ReservaJugador } from "../../components/reserva/ReservaJugador";
 import { useAuth } from "../../context/AuthContext";
 
 export function Reserva() {
 
-    const { isLogueado } = useAuth();
+    const { isLogueado, userLogueado } = useAuth();
+
 
     return (
         <>
-            {isLogueado ? (
-                <h2>Reserva pagina</h2>
+
+            {userLogueado.rol === "jugador" ? (
+                <ReservaJugador />
+            ) : userLogueado.rol === "dueño" ? (
+                <ReservaDueño />
             ) : (
-                <h2> No podes acceder a esta pagina</h2>
+                <h2>No puedes acceder a esta página</h2>
             )}
+
 
         </>
     )

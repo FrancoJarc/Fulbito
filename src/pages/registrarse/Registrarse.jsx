@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
 
 export function Registrarse() {
+    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [formData, setFormData] = useState({
         correo: "",
@@ -39,10 +40,7 @@ export function Registrarse() {
 
         if (response.ok) {
             alert("Registro exitoso")
-            fetch("http://localhost:3000/users")
-                .then((res) => res.json())
-                .then((data) => setUsers(data))
-                .catch((error) => console.log(error))
+            navigate("/") 
         }
     }
 
@@ -94,7 +92,7 @@ export function Registrarse() {
                         <option value="dueño">Dueño</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Iniciar Sesión</button>
+                <button type="submit" className="btn btn-primary w-100">Registrarse</button>
             </form>
         </div>
     );

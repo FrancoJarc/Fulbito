@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export function Cancha() {
 
-    const { isLogueado } = useAuth();
+    const { isLogueado, userLogueado } = useAuth();
     const [ canchas, setCanchas ] = useState([]);
     
     useEffect(() => {
@@ -15,20 +15,23 @@ export function Cancha() {
                 .then((data) => setCanchas(data))
                 .catch((error) => console.log(error));
         }
-    }, [isLogueado])
+    }, [isLogueado, userLogueado])
 
     return (
         <>
-            {isLogueado ? (
+            {isLogueado && userLogueado ?(
                 <div>
                     {canchas.map((cancha) => (
                         <Card
                             key={cancha.id}
+                            id={cancha.id}
                             nombre={cancha.nombre}
                             precio={cancha.precio}
                             capacidad={cancha.capacidad}
                             calle={cancha.calle}
                             telefono={cancha.telefono}
+                            rol={userLogueado.rol}
+                            userId={userLogueado.id}
                         />
                     ))}
                 </div>

@@ -13,18 +13,18 @@ export function AuthProvider({ children }) {
         localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
     )
 
+    const login = async (correo, password, rol) => {
 
-    const [users, setUsers] = useState([]);
+        const response = await fetch("http://localhost:3000/users");
+        if (!response.ok) throw new Error("Error al obtener los usuarios");
 
-    useEffect(() => {
-        fetch("http://localhost:3000/users")
-            .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((error) => console.log("Error al cargar los usuarios:", error));
-    }, []);
-
-    const login = (correo, password, rol) => {
-        const user = users.find((user) => user.correo === correo && user.contraseña === password && user.rol === rol)
+        const users = await response.json();
+        const user = users.find(
+            (user) =>
+                user.correo === correo &&
+                user.contraseña === password &&
+                user.rol === rol
+        );
 
         if (!user) {
             return false;

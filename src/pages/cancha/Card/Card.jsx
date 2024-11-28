@@ -1,4 +1,29 @@
+import { useState } from "react";
+
 export function Card(props) { 
+    const handleReservar = () => {
+        if (props.rol === "jugador") {
+            const reserva = {
+                id_usuario: props.userId,
+                id_cancha: props.id,
+            };
+
+            fetch("http://localhost:3000/reservas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(reserva),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    alert("Reserva creada")
+                })
+                .catch((error) => {
+                    alert("Error al crear la reserva:");
+                });
+        }
+    };
     return (
         <>
             <div className="card text-center">
@@ -10,9 +35,13 @@ export function Card(props) {
                     <p className="card-text"><b>Capacidad:</b> {props.capacidad}</p>
                     <p className="card-text"><b>Dirección:</b> {props.calle}</p>
                     <p className="card-text"><b>Teléfono:</b> {props.telefono}</p>
-                    <a href="#" className="btn btn-primary">Reservar ahora</a>
                 </div>
                 <div className="card-footer text-body-secondary">
+                    {props.rol === "jugador" && (
+                        <button onClick={handleReservar} className="btn btn-primary">
+                            Reservar ahora
+                        </button>
+                    )}
                 </div>
             </div>
         
