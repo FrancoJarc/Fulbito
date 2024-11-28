@@ -1,50 +1,68 @@
 {
-    "canchas": [
-        {
-            "id": 1,
-            "nombre": "La bombonerita",
-            "precio": 25000,
-            "capacidad": "10 Personas",
-            "calle": "Av.Gaona 1880",
-            "telefono": "45411232"
-        },
-        {
-            "id": 2,
-            "nombre": "Eurograss",
-            "precio": 15000,
-            "capacidad": "10 Personas",
-            "calle": "Av.Rivadavia 15500",
-            "telefono": "32978200"
-        },
-        {
-            "id": 3,
-            "nombre": "Club Villa Mitre",
-            "precio": 20000,
-            "capacidad": "12 Personas",
-            "calle": "Murguiondo 988",
-            "telefono": "32655898"
-        },
-        {
-            "id": 4,
-            "nombre": "Club Santiaguito de Liniers",
-            "precio": 18000,
-            "capacidad": "10 Personas",
-            "calle": "Patron 128",
-            "telefono": "77655898"
-        }
-    ],
-    "users": [
-        {
-            "id": 1,
-            "correo": "jugador@gmail.com",
-            "contraseña": "jugador",
-            "rol": "jugador"
-        },
-        {
-            "id": 2,
-            "correo": "dueño@gmail.com",
-            "contraseña": "dueño",
-            "rol": "dueño"
-        }
-    ]
+  "canchas": [
+    {
+      "id": "1",
+      "nombre": "La bombonerita",
+      "precio": 25000,
+      "capacidad": "10 Personas",
+      "calle": "Av.Gaona 1880",
+      "telefono": "45411232"
+    },
+    {
+      "id": "2",
+      "nombre": "Eurograss",
+      "precio": 15000,
+      "capacidad": "10 Personas",
+      "calle": "Av.Rivadavia 15500",
+      "telefono": "32978200"
+    },
+    {
+      "id": "3",
+      "nombre": "Club Villa Mitre",
+      "precio": 20000,
+      "capacidad": "12 Personas",
+      "calle": "Murguiondo 988",
+      "telefono": "32655898"
+    },
+    {
+      "id": "4",
+      "nombre": "Club Santiaguito de Liniers",
+      "precio": 18000,
+      "capacidad": "10 Personas",
+      "calle": "Patron 128",
+      "telefono": "77655898"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "correo": "jugador@gmail.com",
+      "contraseña": "jugador",
+      "rol": "jugador"
+    },
+    {
+      "id": "2",
+      "correo": "dueño@gmail.com",
+      "contraseña": "dueño",
+      "rol": "dueño"
+    },
+    {
+      "id": "3",
+      "correo": "jugador@gmail.com",
+      "contraseña": "jugador",
+      "rol": "jugador"
+    },
+    {
+      "id": "4",
+      "correo": "asdasd@gmail",
+      "contraseña": "jugador",
+      "rol": "jugador"
+    },
+    {
+      "id": "5",
+      "correo": "a@gmail.com",
+      "contraseña": "jugador",
+      "rol": "jugador"
+    }
+  ]
 }

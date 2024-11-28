@@ -8,31 +8,36 @@ const users = [
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) { 
-    const [isLogueado, setIsLogueado] = useState(false);
-    const [userLogueado, setUserLogueado] = [{
-        correo: "",
-        contraseña: "",
-        rol: "",
-    }]
+export function AuthProvider({ children }) {
+    const [isLogueado, setIsLogueado] = useState(
+        localStorage.getItem("isLogueado") ? true : false
+    );
 
-    const login = (correo, password, rol) => { 
-        const user = users.find((user) => user.correo === correo)
-        
+    const [userLogueado, setUserLogueado] = useState(
+        localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
+    )
+
+    const login = (correo, password, rol) => {
+        const user = users.find((user) => user.correo === correo && user.contraseña === password && user.rol === rol)
+
         if (!user) {
             return false;
         }
-        
+
         /*if (correo !== "jugador@gmail.com" || password !== "jugador" || rol !== "jugador") {
             return false;
         }*/
         setIsLogueado(true);
         setUserLogueado(user);
+        localStorage.setItem("isLogueado", true);
+        localStorage.setItem("user", JSON.stringify(user))
         return true;
     }
 
-    const logout = () => { 
+    const logout = () => {
         setIsLogueado(false);
+        localStorage.removeItem("isLogueado");
+        localStorage.removeItem("user");
     }
 
     return (
@@ -44,7 +49,7 @@ export function AuthProvider({ children }) {
         }}>
             {children}
         </AuthContext.Provider>
-    ) 
+    )
 }
 
 
