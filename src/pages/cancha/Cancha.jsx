@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export function Cancha() {
 
     const { isLogueado } = useAuth();
-    const { canchas, setCanchas } = useState([]);
+    const [ canchas, setCanchas ] = useState([]);
     
     useEffect(() => {
         if (isLogueado) {

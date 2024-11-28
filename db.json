@@ -42,27 +42,9 @@
     },
     {
       "id": "2",
-      "correo": "dueño@gmail.com",
-      "contraseña": "dueño",
+      "correo": "dueno@gmail.com",
+      "contraseña": "dueno",
       "rol": "dueño"
-    },
-    {
-      "id": "3",
-      "correo": "jugador@gmail.com",
-      "contraseña": "jugador",
-      "rol": "jugador"
-    },
-    {
-      "id": "4",
-      "correo": "asdasd@gmail",
-      "contraseña": "jugador",
-      "rol": "jugador"
-    },
-    {
-      "id": "5",
-      "correo": "a@gmail.com",
-      "contraseña": "jugador",
-      "rol": "jugador"
     }
   ]
 }

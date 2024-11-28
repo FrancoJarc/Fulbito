@@ -1,32 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"
 import { Login } from "../../pages/login/Login";
 import { appRoutes } from "../../routes/routes";
 
 function Navbar() { 
-    const { isLogueado, login, logout} = useAuth();
+    const { isLogueado, login, logout } = useAuth();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); 
-        const correo = document.getElementById("correo");
-        const password = document.getElementById("password");
-        const rol = document.getElementById("rol");
-
-        if (!correo.value || !password.value || !rol.value) {
-            alert("Complete todos los datos");
-            return;
-        }
-
-        const respuesta = login(correo.value, password.value, rol.value);
-
-        if (!respuesta) {
-            alert("Datos incorrectos");
-            return;
-        }
-
-        alert("Inicio de sesión correcto")
-
-    }
     return (
         <nav className="navbar navbar-expand-lg bg-primary fixed-top">
             <div className="container-fluid">
@@ -45,11 +25,17 @@ function Navbar() {
                         ))}
                     </ul>
                 </div>
-                {isLogueado && (
-                    <button onClick={logout} className="btn btn-danger">
-                        Cerrar sesión
-                    </button>
-                )}
+                <div>
+                    {isLogueado ? (
+                        <button onClick={() => { logout(); navigate("/"); }} className="btn btn-danger">
+                            Cerrar sesión
+                        </button>
+                    ) : (
+                            <button onClick={() => navigate("/")} className="btn btn-danger">
+                            Iniciar sesion
+                        </button>
+                    )}
+                </div>
 
 
 

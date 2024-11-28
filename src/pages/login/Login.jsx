@@ -1,51 +1,43 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { Registrarse } from "../registrarse/Registrarse";
+
 
 
 export function Login() {
-    const [users, setUsers] = useState([]);
+    const { login } = useAuth();
     const [formData, setFormData ] = useState({
         correo: "",
         password: "",
         rol: "jugador"
     });
-
-    useEffect(() => {
-        fetch("http://localhost:3000/users")
-            .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((error) => console.log(error));
-    }, []);
-
+    
+    
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const { correo, password, rol } = formData;
 
-        const user = users.find(
-            (u) =>
-                u.correo === formData.correo &&
-                u.contraseña === formData.password &&
-                u.rol === formData.rol
-        );
+        const loginResultado = login(correo, password, rol);
 
-        if (!user) {
-            alert("Credenciales incorrectas. Verifique los datos ingresados.");
-            return;
+
+        if (loginResultado) {
+            alert("Inicio de sesión exitoso");
+            navigate("/cancha"); 
+        } else {
+            alert("Credenciales incorrectas");
         }
-
-        alert("Inicio de sesión exitoso");
-        localStorage.setItem("user", JSON.stringify(user)); 
-        localStorage.setItem("isLogueado", true); 
     }
 
     const updateData = (e) => {
         const { name, value } = e.target;
-        
         setFormData({
             ...formData,
             [name]:value
         })
-
      }
 
 

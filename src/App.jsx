@@ -7,6 +7,9 @@ import { AuthProvider } from './context/AuthContext'
 import { Card } from './pages/cancha/Card/Card'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { appRoutes, logueoRuotes } from './routes/routes'
+import { Registrarse } from "./pages/registrarse/Registrarse";
+
+
 
 function App() {
   return (<>
