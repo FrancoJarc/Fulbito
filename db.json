@@ -39,6 +39,14 @@
       "capacidad": "10",
       "calle": "Miralla 57880",
       "telefono": "45423547"
+    },
+    {
+      "id": "6",
+      "nombre": "Barragan",
+      "precio": "20000",
+      "capacidad": "10",
+      "calle": "Barragan 1050",
+      "telefono": "46448120"
     }
   ],
   "users": [
@@ -71,18 +79,19 @@
       "correo": "aaa@gmail.com",
       "contraseña": "aaa",
       "rol": "jugador"
+    },
+    {
+      "id": "6",
+      "correo": "soydueno@gmail.com",
+      "contraseña": "soydueno",
+      "rol": "dueño"
     }
   ],
   "reservas": [
     {
-      "id": "cbc5",
+      "id": "6c04",
       "id_usuario": "1",
       "id_cancha": "1"
-    },
-    {
-      "id": "3c81",
-      "id_usuario": "1",
-      "id_cancha": "2"
     }
   ]
 }

@@ -40,7 +40,7 @@ export function Registrarse() {
 
         if (response.ok) {
             alert("Registro exitoso")
-            navigate("/") 
+            navigate("/")
         }
     }
 

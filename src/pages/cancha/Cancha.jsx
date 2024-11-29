@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 export function Cancha() {
 
     const { isLogueado, userLogueado } = useAuth();
-    const [ canchas, setCanchas ] = useState([]);
-    
+    const [canchas, setCanchas] = useState([]);
+
     useEffect(() => {
         if (isLogueado) {
             fetch("http://localhost:3000/canchas")
@@ -19,7 +19,8 @@ export function Cancha() {
 
     return (
         <>
-            {isLogueado && userLogueado ?(
+            <h2 className="mt-5">Canchas disponibles</h2>
+            {isLogueado && userLogueado ? (
                 <div>
                     {canchas.map((cancha) => (
                         <Card
@@ -35,10 +36,12 @@ export function Cancha() {
                         />
                     ))}
                 </div>
+
             ) : (
                 <h2> No podes acceder a esta pagina</h2>
             )}
-
+            <br></br>
+            <br></br>
         </>
     )
 

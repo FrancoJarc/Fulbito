@@ -6,23 +6,19 @@ export function Reserva() {
 
     const { isLogueado, userLogueado } = useAuth();
 
+    if (!userLogueado || !userLogueado.rol || !isLogueado) {
+        return <h2>No podes acceder a esta página</h2>;
+    }
 
     return (
         <>
-
             {userLogueado.rol === "jugador" ? (
                 <ReservaJugador />
             ) : userLogueado.rol === "dueño" ? (
                 <ReservaDueño />
             ) : (
-                <h2>No puedes acceder a esta página</h2>
+                <h2>No podes acceder a esta página</h2>
             )}
-
-
         </>
     )
-
-
-
-
 }

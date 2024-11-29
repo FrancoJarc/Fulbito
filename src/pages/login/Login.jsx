@@ -9,24 +9,26 @@ import { Registrarse } from "../registrarse/Registrarse";
 
 export function Login() {
     const { login } = useAuth();
-    const [formData, setFormData ] = useState({
+    const [formData, setFormData] = useState({
         correo: "",
         password: "",
         rol: "jugador"
     });
-    
-    
+
+
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { correo, password, rol } = formData;
 
-        const loginResultado = login(correo, password, rol);
+
+
+        const loginResultado = await login(correo, password, rol);
 
 
         if (loginResultado) {
             alert("Inicio de sesión exitoso");
-            navigate("/cancha"); 
+            navigate("/cancha");
         } else {
             alert("Credenciales incorrectas");
         }
@@ -36,15 +38,13 @@ export function Login() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]:value
+            [name]: value
         })
-     }
-
-
+    }
 
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "90vh"}}>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "90vh" }}>
             <form className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }} onSubmit={handleSubmit}>
                 <h2 className="text-center mb-4">Iniciar Sesión</h2>
                 <div className="mb-3">

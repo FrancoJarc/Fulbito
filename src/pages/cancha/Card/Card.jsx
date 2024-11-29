@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Card(props) { 
+export function Card(props) {
     const handleReservar = () => {
         if (props.rol === "jugador") {
             const reserva = {
@@ -26,7 +26,7 @@ export function Card(props) {
     };
     return (
         <>
-            <div className="card text-center">
+            <div className="card text-center mb-4 mt-4">
                 <div className="card-header">
                     <b>{props.nombre}</b>
                 </div>
@@ -44,7 +44,7 @@ export function Card(props) {
                     )}
                 </div>
             </div>
-        
+
         </>
     )
 }

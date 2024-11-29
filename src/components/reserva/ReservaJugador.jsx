@@ -6,6 +6,7 @@ export function ReservaJugador() {
 
     const { userLogueado } = useAuth();
     const [reservas, setReservas] = useState([]);
+    const [canchas, setCanchas] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:3000/reservas")
@@ -18,6 +19,13 @@ export function ReservaJugador() {
                 setReservas(reservasUsuario);
             })
             .catch((error) => console.log("Error al cargar reservas:", error));
+
+
+        fetch("http://localhost:3000/canchas")
+            .then((res) => res.json())
+            .then((data) => setCanchas(data))
+            .catch((error) => console.log("Error al cargar canchas:", error));
+
     }, [userLogueado.id]);
 
 
@@ -40,17 +48,22 @@ export function ReservaJugador() {
             {reservas.length === 0 ? (
                 <p>No tienes reservas hechas</p>
             ) : (
-                reservas.map((reserva) => (
-                    <CardReserva
-                        key={reserva.id}
-                        nombreCancha={reserva.nombreCancha}
-                        precio={reserva.precio}
-                        capacidad={reserva.capacidad}
-                        calle={reserva.calle}
-                        telefono={reserva.telefono}
-                        onEliminar={() => handleEliminarReserva(reserva.id)}
-                    />
-                ))
+                reservas.map((reserva) => {
+                    const cancha = canchas.find((c) => c.id === reserva.id_cancha);
+
+                    return (cancha && (
+                        <CardReserva
+                            key={reserva.id}
+                            nombreCancha={cancha.nombre}
+                            precio={cancha.precio}
+                            capacidad={cancha.capacidad}
+                            calle={cancha.calle}
+                            telefono={cancha.telefono}
+                            onEliminar={() => handleEliminarReserva(reserva.id)}
+                        />
+                    )
+                    );
+                })
             )}
         </div>
     );
