@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export function Card(props) {
     const handleReservar = () => {
@@ -17,10 +18,10 @@ export function Card(props) {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    alert("Reserva creada")
+                    toast.success("Reserva creada")
                 })
                 .catch((error) => {
-                    alert("Error al crear la reserva:");
+                    toast.error("Error al crear la reserva")
                 });
         }
     };

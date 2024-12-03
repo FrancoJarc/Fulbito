@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 export function Registrarse() {
@@ -39,7 +40,7 @@ export function Registrarse() {
         })
 
         if (response.ok) {
-            alert("Registro exitoso")
+            toast.success("Registro exitoso")
             navigate("/")
         }
     }

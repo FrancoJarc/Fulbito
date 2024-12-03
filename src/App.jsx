@@ -9,14 +9,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { appRoutes, logueoRuotes } from './routes/routes'
 import { Registrarse } from "./pages/registrarse/Registrarse";
 import { Footer } from './components/footer/Footer'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 
 
 function App() {
   return (<>
 
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <ToastContainer />
         <Navbar />
         <Routes>
           {appRoutes.map(route => (
@@ -27,8 +30,8 @@ function App() {
           ))}
         </Routes>
         <Footer />
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
 
   </>
   )

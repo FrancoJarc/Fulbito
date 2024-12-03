@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Registrarse } from "../registrarse/Registrarse";
+import { toast } from "react-toastify";
 
 
 
@@ -27,10 +28,11 @@ export function Login() {
 
 
         if (loginResultado) {
-            alert("Inicio de sesión exitoso");
+            toast.success("Inicio de sesión exitoso")
             navigate("/cancha");
         } else {
-            alert("Credenciales incorrectas");
+            toast.error("Inicio de sesión fallido")
+
         }
     }
 
