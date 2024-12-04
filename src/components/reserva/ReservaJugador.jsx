@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { CardReserva } from "../../pages/reserva/Card/CardReserva";
+import { useModal } from "../../context/ModalContext";
+
 
 export function ReservaJugador() {
-
+    const { openModal } = useModal();
     const { userLogueado } = useAuth();
     const [reservas, setReservas] = useState([]);
     const [canchas, setCanchas] = useState([]);
@@ -29,7 +31,15 @@ export function ReservaJugador() {
     }, [userLogueado.id]);
 
 
-    const handleEliminarReserva = (idReserva) => {
+    const handleEliminarReserva = async (idReserva) => {
+        const isConfirmed = await openModal({
+            title: "Eliminar reserva",
+            text: "¿Estás seguro que deseas eliminar esta reserva?",
+        });
+
+        if (!isConfirmed) return;
+
+
         fetch(`http://localhost:3000/reservas/${idReserva}`, {
             method: "DELETE",
         })

@@ -11,6 +11,7 @@ import { Registrarse } from "./pages/registrarse/Registrarse";
 import { Footer } from './components/footer/Footer'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
+import { ModalProvider } from './context/ModalContext'
 
 
 
@@ -19,17 +20,19 @@ function App() {
 
     <BrowserRouter>
       <AuthProvider>
-        <ToastContainer />
-        <Navbar />
-        <Routes>
-          {appRoutes.map(route => (
-            <Route key={route.name} path={route.path} element={route.element} />
-          ))}
-          {logueoRuotes.map(route => (
-            <Route key={route.name} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-        <Footer />
+        <ModalProvider>
+          <ToastContainer />
+          <Navbar />
+          <Routes>
+            {appRoutes.map(route => (
+              <Route key={route.name} path={route.path} element={route.element} />
+            ))}
+            {logueoRuotes.map(route => (
+              <Route key={route.name} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+          <Footer />
+        </ModalProvider>
       </AuthProvider>
     </BrowserRouter>
 
