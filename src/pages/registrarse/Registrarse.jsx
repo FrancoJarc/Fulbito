@@ -8,30 +8,30 @@ export function Registrarse() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [formData, setFormData] = useState({
+        nombre: "",
+        apellido: "",
+        dni: "",
+        telefono: "",
         correo: "",
         password: "",
         rol: "jugador"
     });
 
-    useEffect(() => {
-        fetch("http://localhost:3000/users")
-            .then((res) => res.json())
-            .then((data) => setUsers(data))
-            .catch((error) => console.log(error));
-    }, []);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         const user = {
-            id: String(Number(users[users.length - 1].id) + 1),
+            nombre: formData.nombre,
+            apellido: formData.apellido,
+            dni: formData.dni,
+            telefono: formData.telefono,
             correo: formData.correo,
-            contraseña: formData.password,
+            contrasena: formData.password,
             rol: formData.rol
+        };
 
-        }
 
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch("http://localhost:5000/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -42,6 +42,9 @@ export function Registrarse() {
         if (response.ok) {
             toast.success("Registro exitoso")
             navigate("/")
+        } else {
+            const data = await response.json();
+            toast.error(data.error || "Hubo un problema al registrar el usuario");
         }
     }
 
@@ -63,13 +66,61 @@ export function Registrarse() {
             <form className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }} onSubmit={handleSubmit}>
                 <h2 className="text-center mb-4">Registrarse</h2>
                 <div className="mb-3">
+                    <label htmlFor="nombre" className="form-label">Nombre</label>
+                    <input
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        className="form-control"
+                        placeholder="Nombre"
+                        onChange={updateData}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="apellido" className="form-label">Apellido</label>
+                    <input
+                        type="text"
+                        name="apellido"
+                        id="apellido"
+                        className="form-control"
+                        placeholder="Apellido"
+                        onChange={updateData}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="dni" className="form-label">DNI</label>
+                    <input
+                        type="text"
+                        name="dni"
+                        id="dni"
+                        className="form-control"
+                        placeholder="Ej: 12345678"
+                        onChange={updateData}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="telefono" className="form-label">Teléfono</label>
+                    <input
+                        type="text"
+                        name="telefono"
+                        id="telefono"
+                        className="form-control"
+                        placeholder="Ej: 123456789"
+                        onChange={updateData}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="correo" className="form-label">Correo Electrónico</label>
                     <input
                         type="email"
                         name="correo"
                         id="correo"
                         className="form-control"
-                        placeholder="Ejemplo@gmail.com"
+                        placeholder="ejemplo@gmail.com"
                         onChange={updateData}
                         required
                     />
@@ -90,7 +141,7 @@ export function Registrarse() {
                     <label htmlFor="rol" className="form-label">Rol</label>
                     <select name="rol" id="rol" className="form-select" onChange={updateData} value={formData.rol}>
                         <option value="jugador">Jugador</option>
-                        <option value="dueño">Dueño</option>
+                        <option value="dueno">Dueño</option>
                     </select>
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Registrarse</button>

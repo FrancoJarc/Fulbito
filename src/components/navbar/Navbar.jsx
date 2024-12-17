@@ -4,7 +4,7 @@ import { Login } from "../../pages/login/Login";
 import { appRoutes } from "../../routes/routes";
 
 function Navbar() {
-    const { isLogueado, login, logout } = useAuth();
+    const { user, login, logout } = useAuth();
     const navigate = useNavigate();
 
     return (
@@ -26,7 +26,7 @@ function Navbar() {
                     </ul>
                 </div>
                 <div>
-                    {isLogueado ? (
+                    {user ? (
                         <button onClick={() => { logout(); navigate("/"); }} className="btn btn-danger">
                             Cerrar sesión
                         </button>

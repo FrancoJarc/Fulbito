@@ -1,60 +1,82 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { decodeToken } from "../utils/jwt";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
-    const [isLogueado, setIsLogueado] = useState(
-        localStorage.getItem("isLogueado") ? true : false
-    );
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-    const [userLogueado, setUserLogueado] = useState(
-        localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
-    )
+        if (!token) {
+            setUser(null);
+            return;
+        }
+        const decodedToken = decodeToken(token);
 
-    const login = async (correo, password, rol) => {
-
-        const response = await fetch("http://localhost:3000/users");
-        if (!response.ok) throw new Error("Error al obtener los usuarios");
-
-        const users = await response.json();
-        const user = users.find(
-            (user) =>
-                user.correo === correo &&
-                user.contraseña === password &&
-                user.rol === rol
-        );
-
-        if (!user) {
-            return false;
+        if (decodedToken.exp < Date.now() / 1000) {
+            localStorage.removeItem("token");
+            setUser(null);
+            return;
         }
 
-        setIsLogueado(true);
-        localStorage.setItem("isLogueado", true);
-        setUserLogueado(user);
-        localStorage.setItem("user", JSON.stringify(user))
-        return true;
+        if (!decodedToken) {
+            localStorage.removeItem("token");
+            setUser(null);
+            return;
+        }
+
+        setToken(token);
+        setUser(decodedToken);
+    }, []);
+
+    const login = async (correo, contrasena, rol) => {
+
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ correo, contrasena, rol }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            localStorage.setItem("token", data.token);
+            setToken(data.token);
+            setUser(decodeToken(data.token));
+            return true;
+        } else {
+            throw new Error("Error al iniciar sesión", response);
+        }
     }
 
     const logout = () => {
-        setIsLogueado(false);
-        localStorage.removeItem("isLogueado");
-        localStorage.removeItem("user");
-
+        localStorage.removeItem("token");
+        setToken(null);
+        setUser(null);
+    
     }
 
+   
     return (
         <AuthContext.Provider value={{
-            isLogueado,
+            /*isLogueado,*/
             login,
             logout,
-            userLogueado
+            user,
+            token
         }}>
             {children}
         </AuthContext.Provider>
     )
+        
 }
+
 
 
 export const useAuth = () => useContext(AuthContext);

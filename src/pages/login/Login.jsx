@@ -23,17 +23,18 @@ export function Login() {
         const { correo, password, rol } = formData;
 
 
+        try {
+            const loginResultado = await login(correo, password, rol);
 
-        const loginResultado = await login(correo, password, rol);
-
-
-        if (loginResultado) {
-            toast.success("Inicio de sesión exitoso")
-            navigate("/cancha");
-        } else {
-            toast.error("Inicio de sesión fallido")
-
-        }
+            if (loginResultado) {
+                toast.success("Inicio de sesión exitoso");
+                navigate("/cancha");
+            } else {
+                toast.error("Correo, contraseña o rol incorrecto");
+            }
+        } catch (error) {
+            toast.error("Error al iniciar sesión");
+        } 
     }
 
     const updateData = (e) => {
@@ -77,7 +78,7 @@ export function Login() {
                     <label htmlFor="rol" className="form-label">Rol</label>
                     <select name="rol" id="rol" className="form-select" onChange={updateData} value={formData.rol}>
                         <option value="jugador">Jugador</option>
-                        <option value="dueño">Dueño</option>
+                        <option value="dueno">Dueño</option>
                     </select>
                 </div>
                 <div className="text-end mb-3">
