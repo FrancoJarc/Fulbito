@@ -38,6 +38,11 @@ export function Cancha() {
         }
     }, [user, token]);
 
+
+    const handleDeleteCancha = (id) => {
+        setCanchas((prevCanchas) => prevCanchas.filter((cancha) => cancha.id !== id));
+    };
+
     return (
         <>
 
@@ -51,12 +56,15 @@ export function Cancha() {
                             key={cancha.id}
                             id={cancha.id}
                             nombre={cancha.nombre}
-                            precio={cancha.precio}
+                            precio_hora={cancha.precio_hora}
                             capacidad={cancha.capacidad}
                             calle={cancha.calle}
                             telefono={cancha.telefono}
                             rol={user.rol}
                             userId={user.id}
+                            canchaUserId={cancha.id_usuario}
+                            token={token}
+                            onDelete={handleDeleteCancha}
                         />
                     ))}
                 </div>

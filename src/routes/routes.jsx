@@ -1,4 +1,5 @@
 import { Cancha } from "../pages/cancha/Cancha";
+import { EditarCancha } from "../pages/cancha/EditarCancha";
 import { ReservaForm } from "../pages/cancha/ReservaForm";
 import { Login } from "../pages/login/Login";
 import { Perfil } from "../pages/perfil/Perfil";
@@ -14,6 +15,7 @@ export const appRoutes = [
 ]
 
 export const appRoutesSinMenu = [
+    { path : "/editar/:id" ,element: < EditarCancha />, name:"Editar" },
     { path: "/reservas", element: <ReservaForm />, name: "Reservas" },
 ]
 

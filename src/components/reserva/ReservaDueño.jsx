@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 
 export function ReservaDueño() {
@@ -50,7 +51,7 @@ export function ReservaDueño() {
         });
 
         if (response.ok) {
-            alert("Cancha registrada exitosamente");
+            toast.success("Cancha registrada");
             navigate("/cancha");
         } else {
             alert("Hubo un error al registrar la cancha.");
