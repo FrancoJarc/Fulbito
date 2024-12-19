@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 
 export function ReservaDueño() {
     const navigate = useNavigate();
+    const { user, token } = useAuth();
     const [canchas, setCanchas] = useState([]);
     const [formData, setFormData] = useState({
         nombre: "",
@@ -15,10 +17,14 @@ export function ReservaDueño() {
 
 
     useEffect(() => {
-        fetch("http://localhost:3000/canchas")
+        fetch("http://localhost:5000/api/canchas", {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
             .then((res) => res.json())
             .then((data) => setCanchas(data))
-            .catch((error) => console.log(error));
+            .catch((error) => console.log("Error al obtener canchas:", error));
     }, []);
 
 
@@ -26,18 +32,19 @@ export function ReservaDueño() {
         e.preventDefault();
 
         const cancha = {
-            id: String(Number(canchas[canchas.length - 1].id) + 1),
             nombre: formData.nombre,
-            precio: formData.precio,
-            capacidad: formData.capacidad,
+            precio_hora: parseFloat(formData.precio),
+            capacidad: parseInt(formData.capacidad),
             calle: formData.calle,
-            telefono: formData.telefono
+            telefono: Number(formData.telefono),
+            id_usuario: user.id 
         };
 
-        const response = await fetch("http://localhost:3000/canchas", {
+        const response = await fetch("http://localhost:5000/api/canchas", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(cancha)
         });

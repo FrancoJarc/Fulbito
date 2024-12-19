@@ -1,30 +1,15 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function Card(props) {
+    const navigate = useNavigate();
+
     const handleReservar = () => {
         if (props.rol === "jugador") {
-            const reserva = {
-                id_usuario: props.userId,
-                id_cancha: props.id,
-            };
-
-            fetch("http://localhost:3000/reservas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(reserva),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    toast.success("Reserva creada")
-                })
-                .catch((error) => {
-                    toast.error("Error al crear la reserva")
-                });
-        }
+            navigate("/reservas", { state: { canchaId: props.id, userId: props.userId } });        }
     };
+
     return (
         <>
             <div className="card text-center mb-4 mt-4">

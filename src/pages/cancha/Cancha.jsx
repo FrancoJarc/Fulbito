@@ -5,23 +5,47 @@ import { useEffect, useState } from "react";
 
 export function Cancha() {
 
-    const { isLogueado, userLogueado } = useAuth();
+    const { user, token } = useAuth();
     const [canchas, setCanchas] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (isLogueado) {
-            fetch("http://localhost:3000/canchas")
-                .then((res) => res.json())
-                .then((data) => setCanchas(data))
-                .catch((error) => console.log(error));
+        if (user && token) {
+            const fetchCanchas = async () => {
+
+                try {
+                    const response = await fetch("http://localhost:5000/api/canchas", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    setCanchas(data.canchas || []);
+                    setError(null);
+                } catch (err) {
+                    setError(err.message);
+                }
+            };
+
+            fetchCanchas();
         }
-    }, [isLogueado, userLogueado])
+    }, [user, token]);
 
     return (
         <>
-            <h2 className="mt-5">Canchas disponibles</h2>
-            {isLogueado && userLogueado ? (
+
+            {error && <p className="error">{error}</p>}
+
+            {user ? (
                 <div>
+                    <h2 className="mt-5">Canchas disponibles</h2>
                     {canchas.map((cancha) => (
                         <Card
                             key={cancha.id}
@@ -31,8 +55,8 @@ export function Cancha() {
                             capacidad={cancha.capacidad}
                             calle={cancha.calle}
                             telefono={cancha.telefono}
-                            rol={userLogueado.rol}
-                            userId={userLogueado.id}
+                            rol={user.rol}
+                            userId={user.id}
                         />
                     ))}
                 </div>

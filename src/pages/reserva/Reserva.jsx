@@ -3,22 +3,21 @@ import { ReservaJugador } from "../../components/reserva/ReservaJugador";
 import { useAuth } from "../../context/AuthContext";
 
 export function Reserva() {
+    const { user, token } = useAuth();
 
-    const { isLogueado, userLogueado } = useAuth();
-
-    if (!userLogueado || !userLogueado.rol || !isLogueado) {
+    if (!user || !user.rol || !token) {
         return <h2>No podes acceder a esta página</h2>;
     }
 
     return (
         <>
-            {userLogueado.rol === "jugador" ? (
+            {user.rol === "jugador" ? (
                 <ReservaJugador />
-            ) : userLogueado.rol === "dueño" ? (
+            ) : user.rol === "dueno" ? (
                 <ReservaDueño />
             ) : (
                 <h2>No podes acceder a esta página</h2>
             )}
         </>
-    )
+    );
 }

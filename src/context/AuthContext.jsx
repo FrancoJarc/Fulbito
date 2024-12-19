@@ -57,7 +57,6 @@ export function AuthProvider({ children }) {
 
     const logout = () => {
         localStorage.removeItem("token");
-        setToken(null);
         setUser(null);
     
     }
@@ -65,7 +64,6 @@ export function AuthProvider({ children }) {
    
     return (
         <AuthContext.Provider value={{
-            /*isLogueado,*/
             login,
             logout,
             user,
